@@ -1,0 +1,166 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { GraduationCap, Users, School, Percent } from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { supabase } from "@/integrations/supabase/client";
+import { AppShell } from "@/components/AppShell";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export const Route = createFileRoute("/_authenticated/dashboard")({
+  head: () => ({
+    meta: [
+      { title: "National Education Dashboard — MoGEI South Sudan" },
+      {
+        name: "description",
+        content:
+          "Live national indicators on learners, teachers and schools across the Republic of South Sudan.",
+      },
+      { property: "og:title", content: "National Education Dashboard — MoGEI" },
+      { property: "og:description", content: "Live indicators for the national education system." },
+    ],
+  }),
+  component: Dashboard,
+});
+
+type Student = { gender: string; class_level: string; school_id: string | null; status: string };
+type Teacher = { gender: string; status: string; monthly_salary: number };
+type SchoolRow = { state: string; level: string; capacity: number; status: string };
+
+function useStats() {
+  return useQuery({
+    queryKey: ["stats"],
+    queryFn: async () => {
+      const [students, teachers, schools] = await Promise.all([
+        supabase.from("students").select("gender, class_level, school_id, status"),
+        supabase.from("teachers").select("gender, status, monthly_salary"),
+        supabase.from("schools").select("state, level, capacity, status"),
+      ]);
+      if (students.error) throw students.error;
+      if (teachers.error) throw teachers.error;
+      if (schools.error) throw schools.error;
+      return {
+        students: (students.data ?? []) as Student[],
+        teachers: (teachers.data ?? []) as Teacher[],
+        schools: (schools.data ?? []) as SchoolRow[],
+      };
+    },
+  });
+}
+
+const PIE_COLORS = ["var(--color-chart-1)", "var(--color-chart-3)"];
+
+function Dashboard() {
+  const { data, isLoading } = useStats();
+
+  const students = data?.students ?? [];
+  const teachers = data?.teachers ?? [];
+  const schools = data?.schools ?? [];
+
+  const enrolled = students.filter((s) => s.status === "Enrolled");
+  const girls = enrolled.filter((s) => s.gender === "Female").length;
+  const ratio = teachers.length ? Math.round(enrolled.length / teachers.length) : 0;
+
+  const byState = Object.entries(
+    schools.reduce<Record<string, number>>((acc, s) => {
+      acc[s.state || "Unassigned"] = (acc[s.state || "Unassigned"] ?? 0) + 1;
+      return acc;
+    }, {}),
+  )
+    .map(([state, count]) => ({ state, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+
+  const genderSplit = [
+    { name: "Boys", value: enrolled.length - girls },
+    { name: "Girls", value: girls },
+  ];
+
+  const cards = [
+    { label: "Learners enrolled", value: enrolled.length, icon: GraduationCap },
+    { label: "Teachers on register", value: teachers.length, icon: Users },
+    { label: "Schools registered", value: schools.length, icon: School },
+    { label: "Pupil–teacher ratio", value: ratio ? `${ratio}:1` : "—", icon: Percent },
+  ];
+
+  return (
+    <AppShell
+      title="National Education Dashboard"
+      subtitle="Live indicators drawn from the national registries"
+    >
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {cards.map((c) => (
+          <Card key={c.label} className="rounded-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-xs font-normal uppercase tracking-wide text-muted-foreground">
+                <c.icon className="size-4" /> {c.label}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="font-display text-3xl">{isLoading ? "…" : c.value}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-3">
+        <Card className="rounded-sm lg:col-span-2">
+          <CardHeader>
+            <CardTitle className="font-display text-base">Schools by state</CardTitle>
+          </CardHeader>
+          <CardContent className="h-72">
+            {byState.length ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={byState}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="state" tick={{ fontSize: 11 }} interval={0} angle={-20} textAnchor="end" height={60} />
+                  <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                  <Tooltip />
+                  <Bar dataKey="count" fill="var(--color-chart-1)" radius={[2, 2, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="pt-16 text-center text-sm text-muted-foreground">
+                Register schools to populate this indicator.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-sm">
+          <CardHeader>
+            <CardTitle className="font-display text-base">Gender parity</CardTitle>
+          </CardHeader>
+          <CardContent className="h-72">
+            {enrolled.length ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={genderSplit} dataKey="value" nameKey="name" innerRadius={55} outerRadius={90} label>
+                    {genderSplit.map((_, i) => (
+                      <Cell key={i} fill={PIE_COLORS[i]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="pt-16 text-center text-sm text-muted-foreground">
+                Enrol learners to populate this indicator.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </AppShell>
+  );
+}
