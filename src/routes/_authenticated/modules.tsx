@@ -32,26 +32,33 @@ function ModulesPage() {
             <Card className="h-full rounded-sm transition-colors hover:border-primary">
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-3">
-                  <CardTitle className="font-display text-base leading-tight">{m.name}</CardTitle>
-                  <Badge variant={m.live ? "secondary" : "outline"}>
-                    {m.live ? "Live" : "Planned"}
+                  <CardTitle className="font-display text-base leading-tight">
+                    {m.name}
+                    <span className="ml-2 text-xs text-muted-foreground">{m.code}</span>
+                  </CardTitle>
+                  <Badge variant={m.status === "Planned" ? "outline" : "secondary"}>
+                    {m.status}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">{m.description}</p>
+                <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">
+                  {m.group}
+                </p>
               </CardContent>
             </Card>
           );
-          return m.live && m.to ? (
-            <Link key={m.name} to={m.to}>
+          return m.to ? (
+            <Link key={m.code} to={m.to as "/dashboard"}>
               {body}
             </Link>
           ) : (
-            <div key={m.name}>{body}</div>
+            <div key={m.code}>{body}</div>
           );
         })}
       </div>
+
     </AppShell>
   );
 }
