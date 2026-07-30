@@ -19,10 +19,12 @@ import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authentica
 import { Route as AuthenticatedElearningRouteImport } from './routes/_authenticated/elearning'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
 import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
+import { Route as AuthenticatedFieldReportsRouteImport } from './routes/_authenticated/field-reports'
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
 import { Route as AuthenticatedGisRouteImport } from './routes/_authenticated/gis'
 import { Route as AuthenticatedHrRouteImport } from './routes/_authenticated/hr'
 import { Route as AuthenticatedInspectionsRouteImport } from './routes/_authenticated/inspections'
+import { Route as AuthenticatedIntegrationsRouteImport } from './routes/_authenticated/integrations'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedSchoolsRouteImport } from './routes/_authenticated/schools'
@@ -79,6 +81,12 @@ const AuthenticatedExamsRoute = AuthenticatedExamsRouteImport.update({
   path: '/exams',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFieldReportsRoute =
+  AuthenticatedFieldReportsRouteImport.update({
+    id: '/field-reports',
+    path: '/field-reports',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedFinanceRoute = AuthenticatedFinanceRouteImport.update({
   id: '/finance',
   path: '/finance',
@@ -98,6 +106,12 @@ const AuthenticatedInspectionsRoute =
   AuthenticatedInspectionsRouteImport.update({
     id: '/inspections',
     path: '/inspections',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIntegrationsRoute =
+  AuthenticatedIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedModulesRoute = AuthenticatedModulesRouteImport.update({
@@ -136,10 +150,12 @@ export interface FileRoutesByFullPath {
   '/elearning': typeof AuthenticatedElearningRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
+  '/field-reports': typeof AuthenticatedFieldReportsRoute
   '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
   '/hr': typeof AuthenticatedHrRoute
   '/inspections': typeof AuthenticatedInspectionsRoute
+  '/integrations': typeof AuthenticatedIntegrationsRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -156,10 +172,12 @@ export interface FileRoutesByTo {
   '/elearning': typeof AuthenticatedElearningRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
+  '/field-reports': typeof AuthenticatedFieldReportsRoute
   '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
   '/hr': typeof AuthenticatedHrRoute
   '/inspections': typeof AuthenticatedInspectionsRoute
+  '/integrations': typeof AuthenticatedIntegrationsRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -178,10 +196,12 @@ export interface FileRoutesById {
   '/_authenticated/elearning': typeof AuthenticatedElearningRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
   '/_authenticated/exams': typeof AuthenticatedExamsRoute
+  '/_authenticated/field-reports': typeof AuthenticatedFieldReportsRoute
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
   '/_authenticated/gis': typeof AuthenticatedGisRoute
   '/_authenticated/hr': typeof AuthenticatedHrRoute
   '/_authenticated/inspections': typeof AuthenticatedInspectionsRoute
+  '/_authenticated/integrations': typeof AuthenticatedIntegrationsRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/schools': typeof AuthenticatedSchoolsRoute
@@ -200,10 +220,12 @@ export interface FileRouteTypes {
     | '/elearning'
     | '/emis'
     | '/exams'
+    | '/field-reports'
     | '/finance'
     | '/gis'
     | '/hr'
     | '/inspections'
+    | '/integrations'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -220,10 +242,12 @@ export interface FileRouteTypes {
     | '/elearning'
     | '/emis'
     | '/exams'
+    | '/field-reports'
     | '/finance'
     | '/gis'
     | '/hr'
     | '/inspections'
+    | '/integrations'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -241,10 +265,12 @@ export interface FileRouteTypes {
     | '/_authenticated/elearning'
     | '/_authenticated/emis'
     | '/_authenticated/exams'
+    | '/_authenticated/field-reports'
     | '/_authenticated/finance'
     | '/_authenticated/gis'
     | '/_authenticated/hr'
     | '/_authenticated/inspections'
+    | '/_authenticated/integrations'
     | '/_authenticated/modules'
     | '/_authenticated/payroll'
     | '/_authenticated/schools'
@@ -330,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExamsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/field-reports': {
+      id: '/_authenticated/field-reports'
+      path: '/field-reports'
+      fullPath: '/field-reports'
+      preLoaderRoute: typeof AuthenticatedFieldReportsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/finance': {
       id: '/_authenticated/finance'
       path: '/finance'
@@ -356,6 +389,13 @@ declare module '@tanstack/react-router' {
       path: '/inspections'
       fullPath: '/inspections'
       preLoaderRoute: typeof AuthenticatedInspectionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/integrations': {
+      id: '/_authenticated/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof AuthenticatedIntegrationsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/modules': {
@@ -404,10 +444,12 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedElearningRoute: typeof AuthenticatedElearningRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
   AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
+  AuthenticatedFieldReportsRoute: typeof AuthenticatedFieldReportsRoute
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
   AuthenticatedGisRoute: typeof AuthenticatedGisRoute
   AuthenticatedHrRoute: typeof AuthenticatedHrRoute
   AuthenticatedInspectionsRoute: typeof AuthenticatedInspectionsRoute
+  AuthenticatedIntegrationsRoute: typeof AuthenticatedIntegrationsRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedSchoolsRoute: typeof AuthenticatedSchoolsRoute
@@ -423,10 +465,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedElearningRoute: AuthenticatedElearningRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
   AuthenticatedExamsRoute: AuthenticatedExamsRoute,
+  AuthenticatedFieldReportsRoute: AuthenticatedFieldReportsRoute,
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
   AuthenticatedGisRoute: AuthenticatedGisRoute,
   AuthenticatedHrRoute: AuthenticatedHrRoute,
   AuthenticatedInspectionsRoute: AuthenticatedInspectionsRoute,
+  AuthenticatedIntegrationsRoute: AuthenticatedIntegrationsRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedSchoolsRoute: AuthenticatedSchoolsRoute,
