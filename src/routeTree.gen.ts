@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAdministrationRouteImport } from './routes/_authenticated/administration'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
+import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
 import { Route as AuthenticatedGisRouteImport } from './routes/_authenticated/gis'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
@@ -50,6 +51,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
   id: '/emis',
   path: '/emis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedExamsRoute = AuthenticatedExamsRouteImport.update({
+  id: '/exams',
+  path: '/exams',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGisRoute = AuthenticatedGisRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/administration': typeof AuthenticatedAdministrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
+  '/exams': typeof AuthenticatedExamsRoute
   '/gis': typeof AuthenticatedGisRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/administration': typeof AuthenticatedAdministrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
+  '/exams': typeof AuthenticatedExamsRoute
   '/gis': typeof AuthenticatedGisRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/_authenticated/administration': typeof AuthenticatedAdministrationRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
+  '/_authenticated/exams': typeof AuthenticatedExamsRoute
   '/_authenticated/gis': typeof AuthenticatedGisRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/administration'
     | '/dashboard'
     | '/emis'
+    | '/exams'
     | '/gis'
     | '/modules'
     | '/payroll'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/administration'
     | '/dashboard'
     | '/emis'
+    | '/exams'
     | '/gis'
     | '/modules'
     | '/payroll'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/_authenticated/administration'
     | '/_authenticated/dashboard'
     | '/_authenticated/emis'
+    | '/_authenticated/exams'
     | '/_authenticated/gis'
     | '/_authenticated/modules'
     | '/_authenticated/payroll'
@@ -217,6 +229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEmisRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/exams': {
+      id: '/_authenticated/exams'
+      path: '/exams'
+      fullPath: '/exams'
+      preLoaderRoute: typeof AuthenticatedExamsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/gis': {
       id: '/_authenticated/gis'
       path: '/gis'
@@ -266,6 +285,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdministrationRoute: typeof AuthenticatedAdministrationRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
+  AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
   AuthenticatedGisRoute: typeof AuthenticatedGisRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
@@ -278,6 +298,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdministrationRoute: AuthenticatedAdministrationRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
+  AuthenticatedExamsRoute: AuthenticatedExamsRoute,
   AuthenticatedGisRoute: AuthenticatedGisRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
