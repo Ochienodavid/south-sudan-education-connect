@@ -58,7 +58,7 @@ function Home() {
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link to="/directory">Public school directory</Link>
+            <Link to="/modules">Platform modules</Link>
           </Button>
         </div>
 
