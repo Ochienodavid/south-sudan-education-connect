@@ -100,16 +100,6 @@ Data Warehouse & Business Intelligence Platform
 
 Together, these form a full National Education Digital Transformation Platform for the Ministry of General Education and Instruction in South Sudan
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/febd3a4b-659e-4365-82bb-59d2ea93a897).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
 ## Development
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).

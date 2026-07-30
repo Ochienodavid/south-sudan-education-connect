@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -77,12 +76,15 @@ function AuthPage() {
   }
 
   async function google() {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) return toast.error("Google sign-in failed. Try again.");
-    if (result.redirected) return;
-    navigate({ to: "/dashboard", replace: true });
+    const { data, error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
+    if (error) return toast.error('Google sign-in failed. Try again.');
+    // If PostgREST returns a redirect url, navigate there; otherwise check session
+    if ((data as any)?.url) {
+      window.location.href = (data as any).url;
+      return;
+    }
+    const session = await supabase.auth.getSession();
+    if (session.data.session) navigate({ to: '/dashboard', replace: true });
   }
 
   return (
