@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
+import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedSchoolsRouteImport } from './routes/_authenticated/schools'
 import { Route as AuthenticatedStudentsRouteImport } from './routes/_authenticated/students'
 import { Route as AuthenticatedTeachersRouteImport } from './routes/_authenticated/teachers'
@@ -48,6 +49,11 @@ const AuthenticatedModulesRoute = AuthenticatedModulesRouteImport.update({
   path: '/modules',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPayrollRoute = AuthenticatedPayrollRouteImport.update({
+  id: '/payroll',
+  path: '/payroll',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSchoolsRoute = AuthenticatedSchoolsRouteImport.update({
   id: '/schools',
   path: '/schools',
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/modules': typeof AuthenticatedModulesRoute
+  '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
   '/students': typeof AuthenticatedStudentsRoute
   '/teachers': typeof AuthenticatedTeachersRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/modules': typeof AuthenticatedModulesRoute
+  '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
   '/students': typeof AuthenticatedStudentsRoute
   '/teachers': typeof AuthenticatedTeachersRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
+  '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/schools': typeof AuthenticatedSchoolsRoute
   '/_authenticated/students': typeof AuthenticatedStudentsRoute
   '/_authenticated/teachers': typeof AuthenticatedTeachersRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/emis'
     | '/modules'
+    | '/payroll'
     | '/schools'
     | '/students'
     | '/teachers'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/emis'
     | '/modules'
+    | '/payroll'
     | '/schools'
     | '/students'
     | '/teachers'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/emis'
     | '/_authenticated/modules'
+    | '/_authenticated/payroll'
     | '/_authenticated/schools'
     | '/_authenticated/students'
     | '/_authenticated/teachers'
@@ -180,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedModulesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/payroll': {
+      id: '/_authenticated/payroll'
+      path: '/payroll'
+      fullPath: '/payroll'
+      preLoaderRoute: typeof AuthenticatedPayrollRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/schools': {
       id: '/_authenticated/schools'
       path: '/schools'
@@ -208,6 +227,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
+  AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedSchoolsRoute: typeof AuthenticatedSchoolsRoute
   AuthenticatedStudentsRoute: typeof AuthenticatedStudentsRoute
   AuthenticatedTeachersRoute: typeof AuthenticatedTeachersRoute
@@ -217,6 +237,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
+  AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedSchoolsRoute: AuthenticatedSchoolsRoute,
   AuthenticatedStudentsRoute: AuthenticatedStudentsRoute,
   AuthenticatedTeachersRoute: AuthenticatedTeachersRoute,
