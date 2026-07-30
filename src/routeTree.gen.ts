@@ -16,6 +16,7 @@ import { Route as AuthenticatedAdministrationRouteImport } from './routes/_authe
 import { Route as AuthenticatedCurriculumRouteImport } from './routes/_authenticated/curriculum'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
+import { Route as AuthenticatedElearningRouteImport } from './routes/_authenticated/elearning'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
 import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
@@ -61,6 +62,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 const AuthenticatedDocumentsRoute = AuthenticatedDocumentsRouteImport.update({
   id: '/documents',
   path: '/documents',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedElearningRoute = AuthenticatedElearningRouteImport.update({
+  id: '/elearning',
+  path: '/elearning',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/curriculum': typeof AuthenticatedCurriculumRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/documents': typeof AuthenticatedDocumentsRoute
+  '/elearning': typeof AuthenticatedElearningRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
   '/finance': typeof AuthenticatedFinanceRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/curriculum': typeof AuthenticatedCurriculumRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/documents': typeof AuthenticatedDocumentsRoute
+  '/elearning': typeof AuthenticatedElearningRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
   '/finance': typeof AuthenticatedFinanceRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/_authenticated/curriculum': typeof AuthenticatedCurriculumRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
+  '/_authenticated/elearning': typeof AuthenticatedElearningRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
   '/_authenticated/exams': typeof AuthenticatedExamsRoute
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/curriculum'
     | '/dashboard'
     | '/documents'
+    | '/elearning'
     | '/emis'
     | '/exams'
     | '/finance'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/curriculum'
     | '/dashboard'
     | '/documents'
+    | '/elearning'
     | '/emis'
     | '/exams'
     | '/finance'
@@ -227,6 +238,7 @@ export interface FileRouteTypes {
     | '/_authenticated/curriculum'
     | '/_authenticated/dashboard'
     | '/_authenticated/documents'
+    | '/_authenticated/elearning'
     | '/_authenticated/emis'
     | '/_authenticated/exams'
     | '/_authenticated/finance'
@@ -295,6 +307,13 @@ declare module '@tanstack/react-router' {
       path: '/documents'
       fullPath: '/documents'
       preLoaderRoute: typeof AuthenticatedDocumentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/elearning': {
+      id: '/_authenticated/elearning'
+      path: '/elearning'
+      fullPath: '/elearning'
+      preLoaderRoute: typeof AuthenticatedElearningRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/emis': {
@@ -382,6 +401,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCurriculumRoute: typeof AuthenticatedCurriculumRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
+  AuthenticatedElearningRoute: typeof AuthenticatedElearningRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
   AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
@@ -400,6 +420,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCurriculumRoute: AuthenticatedCurriculumRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
+  AuthenticatedElearningRoute: AuthenticatedElearningRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
   AuthenticatedExamsRoute: AuthenticatedExamsRoute,
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
