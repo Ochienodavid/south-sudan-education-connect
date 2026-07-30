@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AppShell } from "@/components/AppShell";
 import { RecordManager, type Column, type Field } from "@/components/RecordManager";
 import { Badge } from "@/components/ui/badge";
-import { COUNTIES_BY_STATE, FIELD_REPORT_STATUS, FIELD_REPORT_TYPES, STATES } from "@/lib/moges";
+import { FIELD_REPORT_STATUS, FIELD_REPORT_TYPES, STATES } from "@/lib/moges";
 
 export const Route = createFileRoute("/_authenticated/field-reports")({
   head: () => ({
@@ -36,7 +36,6 @@ type ReportRow = {
 };
 
 const opts = (l: string[]) => l.map((v) => ({ value: v, label: v }));
-const allCounties = Array.from(new Set(Object.values(COUNTIES_BY_STATE).flat())).sort();
 
 function FieldReportsPage() {
   const { data: schools = [] } = useQuery({
@@ -60,7 +59,7 @@ function FieldReportsPage() {
       span: 2,
     },
     { name: "state", label: "State", type: "select", options: opts(STATES) },
-    { name: "county", label: "County", type: "select", options: opts(allCounties) },
+    { name: "county", label: "County" },
     { name: "reported_on", label: "Date of visit", type: "date" },
     { name: "status", label: "Status", type: "select", options: opts(FIELD_REPORT_STATUS), defaultValue: "Submitted", required: true },
     { name: "learners_present", label: "Learners present", type: "number", defaultValue: 0 },
