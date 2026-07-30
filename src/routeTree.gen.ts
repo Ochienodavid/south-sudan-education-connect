@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
+import { Route as AuthenticatedGisRouteImport } from './routes/_authenticated/gis'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedSchoolsRouteImport } from './routes/_authenticated/schools'
@@ -42,6 +43,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
   id: '/emis',
   path: '/emis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGisRoute = AuthenticatedGisRouteImport.update({
+  id: '/gis',
+  path: '/gis',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedModulesRoute = AuthenticatedModulesRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
+  '/gis': typeof AuthenticatedGisRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
+  '/gis': typeof AuthenticatedGisRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
+  '/_authenticated/gis': typeof AuthenticatedGisRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/schools': typeof AuthenticatedSchoolsRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/emis'
+    | '/gis'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/emis'
+    | '/gis'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/emis'
+    | '/_authenticated/gis'
     | '/_authenticated/modules'
     | '/_authenticated/payroll'
     | '/_authenticated/schools'
@@ -185,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEmisRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/gis': {
+      id: '/_authenticated/gis'
+      path: '/gis'
+      fullPath: '/gis'
+      preLoaderRoute: typeof AuthenticatedGisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/modules': {
       id: '/_authenticated/modules'
       path: '/modules'
@@ -226,6 +245,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
+  AuthenticatedGisRoute: typeof AuthenticatedGisRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedSchoolsRoute: typeof AuthenticatedSchoolsRoute
@@ -236,6 +256,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
+  AuthenticatedGisRoute: AuthenticatedGisRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedSchoolsRoute: AuthenticatedSchoolsRoute,
