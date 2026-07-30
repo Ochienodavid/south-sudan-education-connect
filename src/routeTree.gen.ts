@@ -16,6 +16,7 @@ import { Route as AuthenticatedAdministrationRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
 import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
+import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
 import { Route as AuthenticatedGisRouteImport } from './routes/_authenticated/gis'
 import { Route as AuthenticatedHrRouteImport } from './routes/_authenticated/hr'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
@@ -57,6 +58,11 @@ const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
 const AuthenticatedExamsRoute = AuthenticatedExamsRouteImport.update({
   id: '/exams',
   path: '/exams',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFinanceRoute = AuthenticatedFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGisRoute = AuthenticatedGisRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
+  '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
   '/hr': typeof AuthenticatedHrRoute
   '/modules': typeof AuthenticatedModulesRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
+  '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
   '/hr': typeof AuthenticatedHrRoute
   '/modules': typeof AuthenticatedModulesRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
   '/_authenticated/exams': typeof AuthenticatedExamsRoute
+  '/_authenticated/finance': typeof AuthenticatedFinanceRoute
   '/_authenticated/gis': typeof AuthenticatedGisRoute
   '/_authenticated/hr': typeof AuthenticatedHrRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/emis'
     | '/exams'
+    | '/finance'
     | '/gis'
     | '/hr'
     | '/modules'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/emis'
     | '/exams'
+    | '/finance'
     | '/gis'
     | '/hr'
     | '/modules'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/emis'
     | '/_authenticated/exams'
+    | '/_authenticated/finance'
     | '/_authenticated/gis'
     | '/_authenticated/hr'
     | '/_authenticated/modules'
@@ -248,6 +260,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedExamsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/finance': {
+      id: '/_authenticated/finance'
+      path: '/finance'
+      fullPath: '/finance'
+      preLoaderRoute: typeof AuthenticatedFinanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/gis': {
       id: '/_authenticated/gis'
       path: '/gis'
@@ -305,6 +324,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
   AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
+  AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
   AuthenticatedGisRoute: typeof AuthenticatedGisRoute
   AuthenticatedHrRoute: typeof AuthenticatedHrRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
@@ -319,6 +339,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
   AuthenticatedExamsRoute: AuthenticatedExamsRoute,
+  AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
   AuthenticatedGisRoute: AuthenticatedGisRoute,
   AuthenticatedHrRoute: AuthenticatedHrRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
