@@ -32,6 +32,7 @@ type StudentRow = {
   school_id: string | null;
   guardian_name: string | null;
   guardian_phone: string | null;
+  county_of_origin: string | null;
   disability: string;
   status: string;
 };
@@ -61,7 +62,7 @@ function StudentsPage() {
     { name: "school_id", label: "School", type: "select", options: schoolOptions, span: 2 },
     { name: "guardian_name", label: "Parent / guardian" },
     { name: "guardian_phone", label: "Guardian phone" },
-    { name: "county_of_origin", label: "State of origin", type: "select", options: opts(STATES) },
+    { name: "county_of_origin", label: "State / county of origin", type: "select", options: opts(STATES) },
     { name: "disability", label: "Special needs", type: "select", options: opts(DISABILITIES), defaultValue: "None" },
     { name: "enrollment_date", label: "Enrolment date", type: "date" },
     { name: "status", label: "Enrolment status", type: "select", options: opts(STUDENT_STATUS), defaultValue: "Enrolled", required: true },
@@ -74,6 +75,7 @@ function StudentsPage() {
     { key: "gender", header: "Gender" },
     { key: "class_level", header: "Class" },
     { key: "school_id", header: "School", render: (r) => schoolName(r.school_id) },
+    { key: "county_of_origin", header: "Origin" },
     { key: "guardian_name", header: "Guardian" },
     { key: "guardian_phone", header: "Guardian phone" },
     { key: "disability", header: "Special needs" },
@@ -96,7 +98,7 @@ function StudentsPage() {
         singular="Student"
         fields={fields}
         columns={columns}
-        searchKeys={["code", "first_name", "last_name", "guardian_name", "class_level"]}
+        searchKeys={["code", "first_name", "last_name", "guardian_name", "class_level", "county_of_origin"]}
         emptyHint="No learners registered yet."
       />
     </AppShell>

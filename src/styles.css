@@ -147,9 +147,11 @@
   }
 
   body {
-    background-color: var(--color-background);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-background) 92%, white) 0%, var(--color-background) 100%);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
@@ -158,6 +160,10 @@
   .font-display {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
   }
 }
 
@@ -177,5 +183,12 @@
 @utility gov-panel {
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
-  box-shadow: 0 1px 2px oklch(0.2 0.02 260 / 8%);
+  box-shadow: 0 10px 30px oklch(0.2 0.02 260 / 8%);
+  backdrop-filter: blur(6px);
+}
+
+@utility soft-card {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-card) 96%, var(--color-accent) 4%) 0%, var(--color-card) 100%);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 24px oklch(0.2 0.02 260 / 6%);
 }

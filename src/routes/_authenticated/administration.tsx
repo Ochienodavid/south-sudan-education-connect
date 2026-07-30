@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AppShell } from "@/components/AppShell";
-import { useRoles } from "@/hooks/useSession";
+import { useRoles, useSession } from "@/hooks/useSession";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,22 +42,34 @@ function AdministrationPage() {
   const { data } = useQuery({
     queryKey: ["admin-users"],
     queryFn: async () => {
-      const [profiles, userRoles] = await Promise.all([
-        supabase.from("profiles").select("id, full_name, email, created_at").order("created_at"),
-        supabase.from("user_roles").select("user_id, role"),
-      ]);
-      if (profiles.error) throw profiles.error;
-      if (userRoles.error) throw userRoles.error;
-      return { profiles: profiles.data ?? [], userRoles: userRoles.data ?? [] };
+      const res = await fetch('/api/admin/users');
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ message: res.statusText }));
+        throw new Error(err?.error || err?.message || 'Failed to fetch admin users');
+      }
+      return (await res.json()) as { profiles: any[]; userRoles: any[] };
     },
   });
 
+  const { user } = useSession();
+
   const setRole = useMutation({
     mutationFn: async ({ userId, role }: { userId: string; role: Role }) => {
-      const { error: del } = await supabase.from("user_roles").delete().eq("user_id", userId);
-      if (del) throw del;
-      const { error } = await supabase.from("user_roles").insert({ user_id: userId, role });
-      if (error) throw error;
+      // Call server-side endpoint which uses the service role key to perform the operation
+      const { data } = await supabase.auth.getSession();
+      const token = data.session?.access_token;
+      const res = await fetch('/api/admin/set-role', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ userId, role }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ message: res.statusText }));
+        throw new Error(err?.error || err?.message || 'Failed to set role');
+      }
     },
     onSuccess: () => {
       toast.success("Access rights updated");
@@ -119,7 +131,13 @@ function AdministrationPage() {
                             key={r}
                             size="sm"
                             variant={roleOf(p.id) === r ? "default" : "outline"}
-                            disabled={setRole.isPending || roleOf(p.id) === r}
+                            disabled={
+                              setRole.isPending ||
+                              roleOf(p.id) === r ||
+                              // Prevent administrators from changing their own role via this UI to avoid
+                              // accidental self-demotion which could remove their admin privileges mid-operation.
+                              (user && p.id === user.id)
+                            }
                             onClick={() => setRole.mutate({ userId: p.id, role: r })}
                             className="capitalize"
                           >

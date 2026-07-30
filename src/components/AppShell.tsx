@@ -19,6 +19,7 @@ import { useRoles, useSession } from "@/hooks/useSession";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import UserProfile from "@/components/UserProfile";
 
 const NAV = [
   { to: "/dashboard", label: "National Dashboard", icon: LayoutDashboard },
@@ -111,13 +112,15 @@ export function AppShell({
           })}
         </nav>
         <div className="border-t border-sidebar-border p-4 text-xs">
-          <p className="truncate">{user?.email}</p>
-          <div className="mt-2 flex flex-wrap gap-1">
-            {roles.map((r) => (
-              <Badge key={r} variant="secondary" className="capitalize">
-                {r}
-              </Badge>
-            ))}
+          <div className="rounded-sm border border-sidebar-border/60 bg-sidebar-accent/40 p-3">
+            <p className="truncate font-medium text-sidebar-accent-foreground">{user?.email}</p>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {roles.map((r) => (
+                <Badge key={r} variant="secondary" className="capitalize">
+                  {r}
+                </Badge>
+              ))}
+            </div>
           </div>
           <Button variant="ghost" size="sm" onClick={signOut} className="mt-3 w-full justify-start">
             <LogOut className="size-4" /> Sign out
@@ -126,7 +129,7 @@ export function AppShell({
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 border-b bg-card">
+        <header className="sticky top-0 z-30 border-b bg-card/95 backdrop-blur">
           <div className="flex items-center gap-4 px-5 py-4">
             <Button
               variant="ghost"
@@ -141,7 +144,10 @@ export function AppShell({
               <h1 className="truncate font-display text-xl">{title}</h1>
               {subtitle && <p className="truncate text-sm text-muted-foreground">{subtitle}</p>}
             </div>
-            {actions}
+            <div className="flex items-center gap-3">
+              {actions}
+              <UserProfile />
+            </div>
           </div>
           <div className="flag-rule" />
         </header>

@@ -24,7 +24,7 @@ type LessonRow = {
   id: string;
   code: string;
   title: string;
-  media_type: string;
+  medium: string;
   subject: string | null;
   class_level: string | null;
   language: string;
@@ -37,7 +37,7 @@ const opts = (l: string[]) => l.map((v) => ({ value: v, label: v }));
 
 const fields: Field[] = [
   { name: "code", label: "Lesson code", required: true },
-  { name: "media_type", label: "Media", type: "select", options: opts(LESSON_MEDIA), defaultValue: "Radio", required: true },
+  { name: "medium", label: "Media", type: "select", options: opts(LESSON_MEDIA), defaultValue: "Radio", required: true },
   { name: "title", label: "Lesson title", required: true, span: 2 },
   { name: "subject", label: "Subject", type: "select", options: opts(SUBJECTS) },
   { name: "class_level", label: "Class level", type: "select", options: opts(CLASS_LEVELS) },
@@ -52,7 +52,7 @@ const fields: Field[] = [
 const columns: Column<LessonRow>[] = [
   { key: "code", header: "Code" },
   { key: "title", header: "Lesson" },
-  { key: "media_type", header: "Media" },
+  { key: "medium", header: "Media" },
   { key: "subject", header: "Subject" },
   { key: "class_level", header: "Class" },
   { key: "language", header: "Language" },

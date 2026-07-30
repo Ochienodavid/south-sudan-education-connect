@@ -87,11 +87,18 @@ function AuthPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="bg-sidebar px-6 py-5 text-sidebar-foreground">
-        <Link to="/" className="font-display text-sm text-sidebar-primary">
-          Republic of South Sudan
-        </Link>
-        <p className="font-display text-lg">Ministry of General Education &amp; Instruction</p>
+      <header className="bg-sidebar px-6 py-6 text-sidebar-foreground">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
+          <div>
+            <Link to="/" className="font-display text-sm text-sidebar-primary">
+              Republic of South Sudan
+            </Link>
+            <p className="font-display text-lg">Ministry of General Education &amp; Instruction</p>
+          </div>
+          <div className="rounded-full border border-sidebar-border/60 bg-sidebar-accent/30 px-3 py-1 text-xs uppercase tracking-[0.2em] text-sidebar-foreground/80">
+            Secure access portal
+          </div>
+        </div>
       </header>
       <div className="flag-rule" />
 

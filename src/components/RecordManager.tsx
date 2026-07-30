@@ -105,7 +105,7 @@ export function RecordManager<T extends Row>({
   const [deleteTarget, setDeleteTarget] = useState<T | null>(null);
   const [values, setValues] = useState<Record<string, unknown>>({});
 
-  const { data = [], isLoading } = useQuery({
+  const { data = [], isLoading, isError, error } = useQuery({
     queryKey: [table],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -116,6 +116,12 @@ export function RecordManager<T extends Row>({
       return (data ?? []) as unknown as T[];
     },
   });
+
+  // Surface a clear error message in the UI when the table query fails (e.g., RLS or network)
+  if (isError) {
+    // Do not block rendering entirely — show a visible message in the component tree.
+    // Toast is noisy; render inline below where the table appears.
+  }
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -201,7 +207,29 @@ export function RecordManager<T extends Row>({
   function exportCsv() {
     const header = columns.map((c) => c.header).join(",");
     const lines = filtered.map((row) =>
-      columns.map((c) => `"${String(row[c.key] ?? "").replace(/"/g, '""')}"`).join(","),
+      columns
+        .map((c) => {
+          let value: unknown = row[c.key];
+          if (c.render) {
+            try {
+              const rendered = c.render(row as T);
+              if (typeof rendered === "string" || typeof rendered === "number") {
+                value = rendered;
+              } else if (rendered && typeof rendered === "object" && (rendered as any).props) {
+                // Try to extract textual children from simple React elements like <Badge>Text</Badge>
+                const propsChildren = (rendered as any).props.children;
+                if (typeof propsChildren === "string" || typeof propsChildren === "number") {
+                  value = propsChildren;
+                }
+              }
+            } catch {
+              // Fall back to raw row value if render throws
+              value = row[c.key];
+            }
+          }
+          return `"${String(value ?? "").replace(/"/g, '""')}"`;
+        })
+        .join(","),
     );
     const blob = new Blob([[header, ...lines].join("\n")], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -214,7 +242,7 @@ export function RecordManager<T extends Row>({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="soft-card flex flex-wrap items-center gap-3 rounded-sm p-4">
         <div className="relative min-w-60 flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -234,6 +262,12 @@ export function RecordManager<T extends Row>({
           </Button>
         )}
       </div>
+
+      {isError && (
+        <div className="rounded-sm border border-destructive p-3 text-destructive">{
+          `Error loading ${table} records: ${String((error as any)?.message ?? error)}`
+        }</div>
+      )}
 
       <div className="gov-panel overflow-x-auto rounded-sm">
         <Table>

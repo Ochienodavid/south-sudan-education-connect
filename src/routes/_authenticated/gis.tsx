@@ -47,8 +47,11 @@ function GisPage() {
     },
   });
 
-  const grouped = schools.reduce<Record<string, Row[]>>((acc, s) => {
-    (acc[s.state || "Unassigned"] ??= []).push(s);
+  const grouped = schools.reduce<Record<string, Record<string, Row[]>>>((acc, s) => {
+    const state = s.state || "Unassigned";
+    const county = s.county || "Unassigned";
+    (acc[state] ??= {})[county] ??= [];
+    acc[state][county].push(s);
     return acc;
   }, {});
   const mapped = schools.filter((s) => s.latitude && s.longitude).length;
@@ -67,39 +70,52 @@ function GisPage() {
         </Card>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {Object.entries(grouped).map(([state, rows]) => (
-            <Card key={state} className="rounded-sm">
-              <CardHeader className="pb-2">
-                <CardTitle className="font-display text-base">
-                  {state}
-                  <span className="ml-2 text-xs font-normal text-muted-foreground">
-                    {rows.length} school{rows.length === 1 ? "" : "s"}
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {rows.map((s) => (
-                  <div key={s.id} className="border-b border-border pb-2 last:border-0 last:pb-0">
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium">{s.name}</p>
-                      <Badge variant={s.status === "Active" ? "secondary" : "outline"}>
-                        {s.status}
-                      </Badge>
+          {Object.entries(grouped).map(([state, counties]) => {
+            const totalSchools = Object.values(counties).reduce((sum, rows) => sum + rows.length, 0);
+            return (
+              <Card key={state} className="soft-card rounded-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="font-display text-base">
+                    {state}
+                    <span className="ml-2 text-xs font-normal text-muted-foreground">
+                      {totalSchools} school{totalSchools === 1 ? "" : "s"}
+                    </span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {Object.entries(counties).map(([county, rows]) => (
+                    <div key={`${state}-${county}`} className="rounded-sm border border-border p-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-sm font-medium">{county}</p>
+                        <Badge variant="outline">{rows.length} school{rows.length === 1 ? "" : "s"}</Badge>
+                      </div>
+                      <div className="mt-3 space-y-2">
+                        {rows.map((s) => (
+                          <div key={s.id} className="border-b border-border pb-2 last:border-0 last:pb-0">
+                            <div className="flex items-start justify-between gap-2">
+                              <p className="text-sm font-medium">{s.name}</p>
+                              <Badge variant={s.status === "Active" ? "secondary" : "outline"}>
+                                {s.status}
+                              </Badge>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              {[s.payam].filter(Boolean).join(" · ") || "Location not specified"}
+                            </p>
+                            <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+                              <MapPin className="size-3" />
+                              {s.latitude && s.longitude
+                                ? `${Number(s.latitude).toFixed(4)}, ${Number(s.longitude).toFixed(4)}`
+                                : "Coordinates pending survey"}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      {[s.county, s.payam].filter(Boolean).join(" · ") || "Location not specified"}
-                    </p>
-                    <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-                      <MapPin className="size-3" />
-                      {s.latitude && s.longitude
-                        ? `${Number(s.latitude).toFixed(4)}, ${Number(s.longitude).toFixed(4)}`
-                        : "Coordinates pending survey"}
-                    </p>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          ))}
+                  ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
     </AppShell>

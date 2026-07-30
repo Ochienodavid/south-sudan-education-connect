@@ -16,6 +16,15 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { AppShell } from "@/components/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { buildGeoSummary } from "@/lib/geography";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -34,8 +43,17 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 });
 
 type Student = { gender: string; class_level: string; school_id: string | null; status: string };
-type Teacher = { gender: string; status: string; monthly_salary: number };
-type SchoolRow = { state: string; level: string; capacity: number; status: string };
+type Teacher = { gender: string; status: string; monthly_salary: number; school_id: string | null };
+type SchoolRow = {
+  id: string;
+  name: string;
+  state: string;
+  county: string | null;
+  level: string;
+  capacity: number;
+  status: string;
+  accredited: boolean;
+};
 
 function useStats() {
   return useQuery({
@@ -43,8 +61,8 @@ function useStats() {
     queryFn: async () => {
       const [students, teachers, schools] = await Promise.all([
         supabase.from("students").select("gender, class_level, school_id, status"),
-        supabase.from("teachers").select("gender, status, monthly_salary"),
-        supabase.from("schools").select("state, level, capacity, status"),
+        supabase.from("teachers").select("gender, status, monthly_salary, school_id"),
+        supabase.from("schools").select("id, name, state, county, level, capacity, status, accredited"),
       ]);
       if (students.error) throw students.error;
       if (teachers.error) throw teachers.error;
@@ -93,6 +111,8 @@ function Dashboard() {
     { label: "Pupil–teacher ratio", value: ratio ? `${ratio}:1` : "—", icon: Percent },
   ];
 
+  const geoSummary = buildGeoSummary({ schools, students, teachers });
+
   return (
     <AppShell
       title="National Education Dashboard"
@@ -100,7 +120,7 @@ function Dashboard() {
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((c) => (
-          <Card key={c.label} className="rounded-sm">
+          <Card key={c.label} className="soft-card rounded-sm">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-xs font-normal uppercase tracking-wide text-muted-foreground">
                 <c.icon className="size-4" /> {c.label}
@@ -161,6 +181,48 @@ function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="soft-card mt-5 rounded-sm">
+        <CardHeader>
+          <CardTitle className="font-display text-base">State and county coverage</CardTitle>
+        </CardHeader>
+        <CardContent className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>State</TableHead>
+                <TableHead>Schools</TableHead>
+                <TableHead>Learners</TableHead>
+                <TableHead>Teachers</TableHead>
+                <TableHead>Counties</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {geoSummary.length ? (
+                geoSummary.map((row) => (
+                  <TableRow key={row.state}>
+                    <TableCell className="font-medium">{row.state}</TableCell>
+                    <TableCell>{row.schools}</TableCell>
+                    <TableCell>{row.learners}</TableCell>
+                    <TableCell>{row.teachers}</TableCell>
+                    <TableCell className="max-w-[320px] text-xs text-muted-foreground">
+                      {row.counties.length
+                        ? row.counties.map((county) => `${county.county} (${county.schools})`).join(", ")
+                        : "No county data"}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className="py-6 text-center text-sm text-muted-foreground">
+                    Register schools, learners and teachers to populate state and county reporting.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </AppShell>
   );
 }

@@ -102,7 +102,7 @@ function AnalyticsPage() {
     >
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {indicators.map((i) => (
-          <Card key={i.label} className="rounded-sm">
+          <Card key={i.label} className="soft-card rounded-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-xs font-normal uppercase tracking-wide text-muted-foreground">
                 {i.label}
@@ -119,7 +119,7 @@ function AnalyticsPage() {
       <h2 className="mt-8 mb-3 font-display text-lg">Early warning alerts</h2>
       <div className="grid gap-3 md:grid-cols-2">
         {alerts.map((a) => (
-          <Card key={a.title} className="rounded-sm">
+          <Card key={a.title} className="soft-card rounded-sm">
             <CardContent className="flex items-start justify-between gap-4 p-4">
               <div>
                 <p className="font-medium">{a.title}</p>
