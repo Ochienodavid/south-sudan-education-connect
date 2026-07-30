@@ -179,13 +179,6 @@ export type Database = {
             foreignKeyName: "students_school_id_fkey"
             columns: ["school_id"]
             isOneToOne: false
-            referencedRelation: "school_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "students_school_id_fkey"
-            columns: ["school_id"]
-            isOneToOne: false
             referencedRelation: "schools"
             referencedColumns: ["id"]
           },
@@ -269,13 +262,6 @@ export type Database = {
             foreignKeyName: "teachers_school_id_fkey"
             columns: ["school_id"]
             isOneToOne: false
-            referencedRelation: "school_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "teachers_school_id_fkey"
-            columns: ["school_id"]
-            isOneToOne: false
             referencedRelation: "schools"
             referencedColumns: ["id"]
           },
@@ -301,48 +287,7 @@ export type Database = {
       }
     }
     Views: {
-      school_directory: {
-        Row: {
-          accredited: boolean | null
-          code: string | null
-          county: string | null
-          id: string | null
-          latitude: number | null
-          level: string | null
-          longitude: number | null
-          name: string | null
-          ownership: string | null
-          payam: string | null
-          state: string | null
-        }
-        Insert: {
-          accredited?: boolean | null
-          code?: string | null
-          county?: string | null
-          id?: string | null
-          latitude?: number | null
-          level?: string | null
-          longitude?: number | null
-          name?: string | null
-          ownership?: string | null
-          payam?: string | null
-          state?: string | null
-        }
-        Update: {
-          accredited?: boolean | null
-          code?: string | null
-          county?: string | null
-          id?: string | null
-          latitude?: number | null
-          level?: string | null
-          longitude?: number | null
-          name?: string | null
-          ownership?: string | null
-          payam?: string | null
-          state?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       can_write: { Args: { _user_id: string }; Returns: boolean }
