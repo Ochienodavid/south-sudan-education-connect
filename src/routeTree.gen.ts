@@ -20,6 +20,7 @@ import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
 import { Route as AuthenticatedGisRouteImport } from './routes/_authenticated/gis'
 import { Route as AuthenticatedHrRouteImport } from './routes/_authenticated/hr'
+import { Route as AuthenticatedInspectionsRouteImport } from './routes/_authenticated/inspections'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedSchoolsRouteImport } from './routes/_authenticated/schools'
@@ -81,6 +82,12 @@ const AuthenticatedHrRoute = AuthenticatedHrRouteImport.update({
   path: '/hr',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedInspectionsRoute =
+  AuthenticatedInspectionsRouteImport.update({
+    id: '/inspections',
+    path: '/inspections',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedModulesRoute = AuthenticatedModulesRouteImport.update({
   id: '/modules',
   path: '/modules',
@@ -118,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
   '/hr': typeof AuthenticatedHrRoute
+  '/inspections': typeof AuthenticatedInspectionsRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -135,6 +143,7 @@ export interface FileRoutesByTo {
   '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
   '/hr': typeof AuthenticatedHrRoute
+  '/inspections': typeof AuthenticatedInspectionsRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -154,6 +163,7 @@ export interface FileRoutesById {
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
   '/_authenticated/gis': typeof AuthenticatedGisRoute
   '/_authenticated/hr': typeof AuthenticatedHrRoute
+  '/_authenticated/inspections': typeof AuthenticatedInspectionsRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/schools': typeof AuthenticatedSchoolsRoute
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/gis'
     | '/hr'
+    | '/inspections'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/gis'
     | '/hr'
+    | '/inspections'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -208,6 +220,7 @@ export interface FileRouteTypes {
     | '/_authenticated/finance'
     | '/_authenticated/gis'
     | '/_authenticated/hr'
+    | '/_authenticated/inspections'
     | '/_authenticated/modules'
     | '/_authenticated/payroll'
     | '/_authenticated/schools'
@@ -300,6 +313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHrRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/inspections': {
+      id: '/_authenticated/inspections'
+      path: '/inspections'
+      fullPath: '/inspections'
+      preLoaderRoute: typeof AuthenticatedInspectionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/modules': {
       id: '/_authenticated/modules'
       path: '/modules'
@@ -347,6 +367,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
   AuthenticatedGisRoute: typeof AuthenticatedGisRoute
   AuthenticatedHrRoute: typeof AuthenticatedHrRoute
+  AuthenticatedInspectionsRoute: typeof AuthenticatedInspectionsRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedSchoolsRoute: typeof AuthenticatedSchoolsRoute
@@ -363,6 +384,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
   AuthenticatedGisRoute: AuthenticatedGisRoute,
   AuthenticatedHrRoute: AuthenticatedHrRoute,
+  AuthenticatedInspectionsRoute: AuthenticatedInspectionsRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedSchoolsRoute: AuthenticatedSchoolsRoute,
