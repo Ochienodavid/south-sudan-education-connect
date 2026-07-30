@@ -13,9 +13,21 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAdministrationRouteImport } from './routes/_authenticated/administration'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
+import { Route as AuthenticatedCurriculumRouteImport } from './routes/_authenticated/curriculum'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDirectoryRouteImport } from './routes/_authenticated/directory'
+import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
+import { Route as AuthenticatedElearningRouteImport } from './routes/_authenticated/elearning'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
+import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
+import { Route as AuthenticatedFieldReportsRouteImport } from './routes/_authenticated/field-reports'
+import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
 import { Route as AuthenticatedGisRouteImport } from './routes/_authenticated/gis'
+import { Route as AuthenticatedHrRouteImport } from './routes/_authenticated/hr'
+import { Route as AuthenticatedInspectionsRouteImport } from './routes/_authenticated/inspections'
+import { Route as AuthenticatedIntegrationsRouteImport } from './routes/_authenticated/integrations'
+import { Route as AuthenticatedIntelligenceRouteImport } from './routes/_authenticated/intelligence'
 import { Route as AuthenticatedModulesRouteImport } from './routes/_authenticated/modules'
 import { Route as AuthenticatedPayrollRouteImport } from './routes/_authenticated/payroll'
 import { Route as AuthenticatedSchoolsRouteImport } from './routes/_authenticated/schools'
@@ -42,9 +54,34 @@ const AuthenticatedAdministrationRoute =
     path: '/administration',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCurriculumRoute = AuthenticatedCurriculumRouteImport.update({
+  id: '/curriculum',
+  path: '/curriculum',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDirectoryRoute = AuthenticatedDirectoryRouteImport.update({
+  id: '/directory',
+  path: '/directory',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDocumentsRoute = AuthenticatedDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedElearningRoute = AuthenticatedElearningRouteImport.update({
+  id: '/elearning',
+  path: '/elearning',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
@@ -52,11 +89,50 @@ const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
   path: '/emis',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedExamsRoute = AuthenticatedExamsRouteImport.update({
+  id: '/exams',
+  path: '/exams',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFieldReportsRoute =
+  AuthenticatedFieldReportsRouteImport.update({
+    id: '/field-reports',
+    path: '/field-reports',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFinanceRoute = AuthenticatedFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedGisRoute = AuthenticatedGisRouteImport.update({
   id: '/gis',
   path: '/gis',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedHrRoute = AuthenticatedHrRouteImport.update({
+  id: '/hr',
+  path: '/hr',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedInspectionsRoute =
+  AuthenticatedInspectionsRouteImport.update({
+    id: '/inspections',
+    path: '/inspections',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIntegrationsRoute =
+  AuthenticatedIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIntelligenceRoute =
+  AuthenticatedIntelligenceRouteImport.update({
+    id: '/intelligence',
+    path: '/intelligence',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedModulesRoute = AuthenticatedModulesRouteImport.update({
   id: '/modules',
   path: '/modules',
@@ -87,9 +163,21 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/administration': typeof AuthenticatedAdministrationRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/curriculum': typeof AuthenticatedCurriculumRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/directory': typeof AuthenticatedDirectoryRoute
+  '/documents': typeof AuthenticatedDocumentsRoute
+  '/elearning': typeof AuthenticatedElearningRoute
   '/emis': typeof AuthenticatedEmisRoute
+  '/exams': typeof AuthenticatedExamsRoute
+  '/field-reports': typeof AuthenticatedFieldReportsRoute
+  '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
+  '/hr': typeof AuthenticatedHrRoute
+  '/inspections': typeof AuthenticatedInspectionsRoute
+  '/integrations': typeof AuthenticatedIntegrationsRoute
+  '/intelligence': typeof AuthenticatedIntelligenceRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -100,9 +188,21 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/administration': typeof AuthenticatedAdministrationRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/curriculum': typeof AuthenticatedCurriculumRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/directory': typeof AuthenticatedDirectoryRoute
+  '/documents': typeof AuthenticatedDocumentsRoute
+  '/elearning': typeof AuthenticatedElearningRoute
   '/emis': typeof AuthenticatedEmisRoute
+  '/exams': typeof AuthenticatedExamsRoute
+  '/field-reports': typeof AuthenticatedFieldReportsRoute
+  '/finance': typeof AuthenticatedFinanceRoute
   '/gis': typeof AuthenticatedGisRoute
+  '/hr': typeof AuthenticatedHrRoute
+  '/inspections': typeof AuthenticatedInspectionsRoute
+  '/integrations': typeof AuthenticatedIntegrationsRoute
+  '/intelligence': typeof AuthenticatedIntelligenceRoute
   '/modules': typeof AuthenticatedModulesRoute
   '/payroll': typeof AuthenticatedPayrollRoute
   '/schools': typeof AuthenticatedSchoolsRoute
@@ -115,9 +215,21 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/administration': typeof AuthenticatedAdministrationRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
+  '/_authenticated/curriculum': typeof AuthenticatedCurriculumRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/directory': typeof AuthenticatedDirectoryRoute
+  '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
+  '/_authenticated/elearning': typeof AuthenticatedElearningRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
+  '/_authenticated/exams': typeof AuthenticatedExamsRoute
+  '/_authenticated/field-reports': typeof AuthenticatedFieldReportsRoute
+  '/_authenticated/finance': typeof AuthenticatedFinanceRoute
   '/_authenticated/gis': typeof AuthenticatedGisRoute
+  '/_authenticated/hr': typeof AuthenticatedHrRoute
+  '/_authenticated/inspections': typeof AuthenticatedInspectionsRoute
+  '/_authenticated/integrations': typeof AuthenticatedIntegrationsRoute
+  '/_authenticated/intelligence': typeof AuthenticatedIntelligenceRoute
   '/_authenticated/modules': typeof AuthenticatedModulesRoute
   '/_authenticated/payroll': typeof AuthenticatedPayrollRoute
   '/_authenticated/schools': typeof AuthenticatedSchoolsRoute
@@ -130,9 +242,21 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/administration'
+    | '/analytics'
+    | '/curriculum'
     | '/dashboard'
+    | '/directory'
+    | '/documents'
+    | '/elearning'
     | '/emis'
+    | '/exams'
+    | '/field-reports'
+    | '/finance'
     | '/gis'
+    | '/hr'
+    | '/inspections'
+    | '/integrations'
+    | '/intelligence'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -143,9 +267,21 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/administration'
+    | '/analytics'
+    | '/curriculum'
     | '/dashboard'
+    | '/directory'
+    | '/documents'
+    | '/elearning'
     | '/emis'
+    | '/exams'
+    | '/field-reports'
+    | '/finance'
     | '/gis'
+    | '/hr'
+    | '/inspections'
+    | '/integrations'
+    | '/intelligence'
     | '/modules'
     | '/payroll'
     | '/schools'
@@ -157,9 +293,21 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/administration'
+    | '/_authenticated/analytics'
+    | '/_authenticated/curriculum'
     | '/_authenticated/dashboard'
+    | '/_authenticated/directory'
+    | '/_authenticated/documents'
+    | '/_authenticated/elearning'
     | '/_authenticated/emis'
+    | '/_authenticated/exams'
+    | '/_authenticated/field-reports'
+    | '/_authenticated/finance'
     | '/_authenticated/gis'
+    | '/_authenticated/hr'
+    | '/_authenticated/inspections'
+    | '/_authenticated/integrations'
+    | '/_authenticated/intelligence'
     | '/_authenticated/modules'
     | '/_authenticated/payroll'
     | '/_authenticated/schools'
@@ -203,11 +351,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdministrationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/curriculum': {
+      id: '/_authenticated/curriculum'
+      path: '/curriculum'
+      fullPath: '/curriculum'
+      preLoaderRoute: typeof AuthenticatedCurriculumRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/directory': {
+      id: '/_authenticated/directory'
+      path: '/directory'
+      fullPath: '/directory'
+      preLoaderRoute: typeof AuthenticatedDirectoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/documents': {
+      id: '/_authenticated/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof AuthenticatedDocumentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/elearning': {
+      id: '/_authenticated/elearning'
+      path: '/elearning'
+      fullPath: '/elearning'
+      preLoaderRoute: typeof AuthenticatedElearningRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/emis': {
@@ -217,11 +400,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEmisRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/exams': {
+      id: '/_authenticated/exams'
+      path: '/exams'
+      fullPath: '/exams'
+      preLoaderRoute: typeof AuthenticatedExamsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/field-reports': {
+      id: '/_authenticated/field-reports'
+      path: '/field-reports'
+      fullPath: '/field-reports'
+      preLoaderRoute: typeof AuthenticatedFieldReportsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/finance': {
+      id: '/_authenticated/finance'
+      path: '/finance'
+      fullPath: '/finance'
+      preLoaderRoute: typeof AuthenticatedFinanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/gis': {
       id: '/_authenticated/gis'
       path: '/gis'
       fullPath: '/gis'
       preLoaderRoute: typeof AuthenticatedGisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/hr': {
+      id: '/_authenticated/hr'
+      path: '/hr'
+      fullPath: '/hr'
+      preLoaderRoute: typeof AuthenticatedHrRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/inspections': {
+      id: '/_authenticated/inspections'
+      path: '/inspections'
+      fullPath: '/inspections'
+      preLoaderRoute: typeof AuthenticatedInspectionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/integrations': {
+      id: '/_authenticated/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof AuthenticatedIntegrationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/intelligence': {
+      id: '/_authenticated/intelligence'
+      path: '/intelligence'
+      fullPath: '/intelligence'
+      preLoaderRoute: typeof AuthenticatedIntelligenceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/modules': {
@@ -264,9 +496,21 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdministrationRoute: typeof AuthenticatedAdministrationRoute
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
+  AuthenticatedCurriculumRoute: typeof AuthenticatedCurriculumRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDirectoryRoute: typeof AuthenticatedDirectoryRoute
+  AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
+  AuthenticatedElearningRoute: typeof AuthenticatedElearningRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
+  AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
+  AuthenticatedFieldReportsRoute: typeof AuthenticatedFieldReportsRoute
+  AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
   AuthenticatedGisRoute: typeof AuthenticatedGisRoute
+  AuthenticatedHrRoute: typeof AuthenticatedHrRoute
+  AuthenticatedInspectionsRoute: typeof AuthenticatedInspectionsRoute
+  AuthenticatedIntegrationsRoute: typeof AuthenticatedIntegrationsRoute
+  AuthenticatedIntelligenceRoute: typeof AuthenticatedIntelligenceRoute
   AuthenticatedModulesRoute: typeof AuthenticatedModulesRoute
   AuthenticatedPayrollRoute: typeof AuthenticatedPayrollRoute
   AuthenticatedSchoolsRoute: typeof AuthenticatedSchoolsRoute
@@ -276,9 +520,21 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdministrationRoute: AuthenticatedAdministrationRoute,
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
+  AuthenticatedCurriculumRoute: AuthenticatedCurriculumRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDirectoryRoute: AuthenticatedDirectoryRoute,
+  AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
+  AuthenticatedElearningRoute: AuthenticatedElearningRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
+  AuthenticatedExamsRoute: AuthenticatedExamsRoute,
+  AuthenticatedFieldReportsRoute: AuthenticatedFieldReportsRoute,
+  AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
   AuthenticatedGisRoute: AuthenticatedGisRoute,
+  AuthenticatedHrRoute: AuthenticatedHrRoute,
+  AuthenticatedInspectionsRoute: AuthenticatedInspectionsRoute,
+  AuthenticatedIntegrationsRoute: AuthenticatedIntegrationsRoute,
+  AuthenticatedIntelligenceRoute: AuthenticatedIntelligenceRoute,
   AuthenticatedModulesRoute: AuthenticatedModulesRoute,
   AuthenticatedPayrollRoute: AuthenticatedPayrollRoute,
   AuthenticatedSchoolsRoute: AuthenticatedSchoolsRoute,

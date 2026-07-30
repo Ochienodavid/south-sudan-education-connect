@@ -66,6 +66,20 @@ export type Column<T> = {
 
 type Row = Record<string, unknown>;
 
+export type TableName =
+  | "schools"
+  | "teachers"
+  | "students"
+  | "exam_registrations"
+  | "staff_actions"
+  | "budget_lines"
+  | "documents"
+  | "inspections"
+  | "curriculum_items"
+  | "lessons"
+  | "integrations"
+  | "field_reports";
+
 export function RecordManager<T extends Row>({
   table,
   singular,
@@ -75,7 +89,7 @@ export function RecordManager<T extends Row>({
   orderBy = "created_at",
   emptyHint,
 }: {
-  table: "schools" | "teachers" | "students";
+  table: TableName;
   singular: string;
   fields: Field[];
   columns: Column<T>[];

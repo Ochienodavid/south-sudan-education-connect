@@ -82,6 +82,110 @@ export const EMPLOYMENT_STATUS = ["Permanent", "Contract", "Volunteer", "Seconde
 
 export const TEACHER_STATUS = ["Active", "On leave", "Suspended", "Transferred", "Retired"];
 
+export const EXAM_SERIES = [
+  "Primary Leaving Examination",
+  "South Sudan Certificate of Secondary Education",
+  "Mock Examination",
+  "Technical & Vocational Assessment",
+];
+
+export const EXAM_STATUS = ["Registered", "Sat", "Absent", "Marked", "Certified", "Withheld"];
+
+export const GRADES = ["A", "B", "C", "D", "E", "F", "Pending"];
+
+export const HR_ACTION_TYPES = [
+  "Posting",
+  "Transfer",
+  "Promotion",
+  "Annual leave",
+  "Maternity leave",
+  "Study leave",
+  "Disciplinary case",
+  "Retirement",
+];
+
+export const HR_STATUS = ["Pending", "Approved", "Rejected", "Completed"];
+
+export const BUDGET_CATEGORIES = [
+  "Capitation grant",
+  "Salaries & wages",
+  "Infrastructure",
+  "Teaching & learning materials",
+  "Examinations",
+  "Administration",
+  "Teacher training",
+];
+
+export const FUNDING_SOURCES = [
+  "Government of South Sudan",
+  "GPE",
+  "World Bank",
+  "UNICEF",
+  "UNESCO",
+  "Bilateral partner",
+  "Community contribution",
+];
+
+export const BUDGET_STATUS = ["Draft", "Approved", "Committed", "Disbursed", "Closed"];
+
+export const DOCUMENT_CATEGORIES = [
+  "Circular",
+  "Policy",
+  "Ministerial order",
+  "Guideline",
+  "Report",
+  "Correspondence",
+  "Form",
+];
+
+export const DIRECTORATES = [
+  "Office of the Minister",
+  "Directorate of General Education",
+  "Directorate of Planning & Budgeting",
+  "Directorate of Quality Assurance",
+  "Directorate of Human Resources",
+  "National Examinations Council",
+  "Directorate of Curriculum Development",
+];
+
+export const DOCUMENT_STATUS = ["Active", "Superseded", "Withdrawn", "Draft"];
+
+export const INSPECTION_TYPES = [
+  "Routine",
+  "Accreditation",
+  "Follow-up",
+  "Complaint investigation",
+  "Examination centre audit",
+];
+
+export const INSPECTION_RATINGS = ["Outstanding", "Good", "Satisfactory", "Weak", "Critical"];
+
+export const INSPECTION_STATUS = ["Scheduled", "Completed", "Report issued", "Action pending"];
+
+export const CURRICULUM_TYPES = ["Syllabus", "Textbook", "Teacher guide", "Assessment framework"];
+
+export const CURRICULUM_STATUS = ["Draft", "Under review", "Approved", "In distribution", "Retired"];
+
+export const LESSON_MEDIA = ["Radio", "Video", "Audio", "Printed pack", "Interactive"];
+
+export const LESSON_LANGUAGES = ["English", "Arabic", "Dinka", "Nuer", "Bari", "Zande", "Shilluk"];
+
+export const LESSON_STATUS = ["Draft", "Published", "Broadcast", "Archived"];
+
+export const INTEGRATION_DIRECTIONS = ["Inbound", "Outbound", "Bi-directional"];
+
+export const INTEGRATION_STATUS = ["Active", "Testing", "Suspended", "Retired"];
+
+export const FIELD_REPORT_TYPES = [
+  "School visit",
+  "Attendance spot-check",
+  "Infrastructure survey",
+  "Textbook delivery",
+  "Emergency report",
+];
+
+export const FIELD_REPORT_STATUS = ["Submitted", "Under review", "Verified", "Rejected"];
+
 export type ModuleEntry = {
   code: string;
   name: string;
@@ -90,6 +194,7 @@ export type ModuleEntry = {
   to?: string;
   status: "Operational" | "Registry-backed" | "Planned";
 };
+
 
 /** The 20 subsystems of the National Education Digital Transformation Platform. */
 export const MODULES: ModuleEntry[] = [
@@ -138,14 +243,16 @@ export const MODULES: ModuleEntry[] = [
     name: "Examination Management System",
     description: "Candidate registration, centres, marking and national certification.",
     group: "Service delivery",
-    status: "Planned",
+    to: "/exams",
+    status: "Operational",
   },
   {
     code: "HRMS",
     name: "Human Resource Management System",
     description: "Establishment, postings, leave and disciplinary case management.",
     group: "Corporate services",
-    status: "Planned",
+    to: "/hr",
+    status: "Operational",
   },
   {
     code: "PAY",
@@ -160,28 +267,32 @@ export const MODULES: ModuleEntry[] = [
     name: "Financial Management System",
     description: "Budgets, capitation grants, expenditure tracking and audit trail.",
     group: "Corporate services",
-    status: "Planned",
+    to: "/finance",
+    status: "Operational",
   },
   {
     code: "DMS",
     name: "Document Management System",
     description: "Circulars, policies and official correspondence repository.",
     group: "Corporate services",
-    status: "Planned",
+    to: "/documents",
+    status: "Operational",
   },
   {
     code: "IQA",
     name: "Inspection & Quality Assurance",
     description: "School inspection scheduling, findings and improvement plans.",
     group: "Service delivery",
-    status: "Planned",
+    to: "/inspections",
+    status: "Operational",
   },
   {
     code: "CMS",
     name: "Curriculum Management System",
     description: "National curriculum framework, syllabi and textbook distribution.",
     group: "Service delivery",
-    status: "Planned",
+    to: "/curriculum",
+    status: "Operational",
   },
   {
     code: "GIS",
@@ -196,7 +307,8 @@ export const MODULES: ModuleEntry[] = [
     name: "E-Learning Platform",
     description: "Digital lessons and radio/offline learning for hard-to-reach areas.",
     group: "Service delivery",
-    status: "Planned",
+    to: "/elearning",
+    status: "Operational",
   },
   {
     code: "CIT",
@@ -211,21 +323,24 @@ export const MODULES: ModuleEntry[] = [
     name: "AI Analytics & Decision Support",
     description: "Out-of-school risk, staffing gaps and resource allocation modelling.",
     group: "Analytics",
-    status: "Planned",
+    to: "/analytics",
+    status: "Operational",
   },
   {
     code: "MOB",
     name: "Mobile Applications",
     description: "Field data collection for county education officers on low bandwidth.",
     group: "Citizen services",
-    status: "Planned",
+    to: "/field-reports",
+    status: "Operational",
   },
   {
     code: "API",
     name: "Integration & API Gateway",
     description: "Interoperability with treasury, civil registry and development partners.",
     group: "Technical",
-    status: "Planned",
+    to: "/integrations",
+    status: "Operational",
   },
   {
     code: "SEC",
@@ -240,7 +355,8 @@ export const MODULES: ModuleEntry[] = [
     name: "Data Warehouse & Business Intelligence",
     description: "Historical data marts and cross-module reporting.",
     group: "Analytics",
-    status: "Planned",
+    to: "/intelligence",
+    status: "Operational",
   },
 ];
 
