@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAdministrationRouteImport } from './routes/_authenticated/administration'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
 import { Route as AuthenticatedEmisRouteImport } from './routes/_authenticated/emis'
 import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
@@ -48,6 +49,11 @@ const AuthenticatedAdministrationRoute =
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDocumentsRoute = AuthenticatedDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEmisRoute = AuthenticatedEmisRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/administration': typeof AuthenticatedAdministrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/documents': typeof AuthenticatedDocumentsRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
   '/finance': typeof AuthenticatedFinanceRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/administration': typeof AuthenticatedAdministrationRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/documents': typeof AuthenticatedDocumentsRoute
   '/emis': typeof AuthenticatedEmisRoute
   '/exams': typeof AuthenticatedExamsRoute
   '/finance': typeof AuthenticatedFinanceRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/administration': typeof AuthenticatedAdministrationRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
   '/_authenticated/emis': typeof AuthenticatedEmisRoute
   '/_authenticated/exams': typeof AuthenticatedExamsRoute
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/administration'
     | '/dashboard'
+    | '/documents'
     | '/emis'
     | '/exams'
     | '/finance'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/administration'
     | '/dashboard'
+    | '/documents'
     | '/emis'
     | '/exams'
     | '/finance'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/administration'
     | '/_authenticated/dashboard'
+    | '/_authenticated/documents'
     | '/_authenticated/emis'
     | '/_authenticated/exams'
     | '/_authenticated/finance'
@@ -244,6 +256,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/documents': {
+      id: '/_authenticated/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof AuthenticatedDocumentsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/emis': {
@@ -322,6 +341,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdministrationRoute: typeof AuthenticatedAdministrationRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
   AuthenticatedEmisRoute: typeof AuthenticatedEmisRoute
   AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
@@ -337,6 +357,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdministrationRoute: AuthenticatedAdministrationRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
   AuthenticatedEmisRoute: AuthenticatedEmisRoute,
   AuthenticatedExamsRoute: AuthenticatedExamsRoute,
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
