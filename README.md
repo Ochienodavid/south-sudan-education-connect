@@ -92,7 +92,7 @@ Mobile Applications
 
 National Education Dashboard
 
-Integration & API Gateway
+Partners of General Education & Instruction
 
 Security & Identity Management System
 

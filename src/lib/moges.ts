@@ -172,9 +172,36 @@ export const LESSON_LANGUAGES = ["English", "Arabic", "Dinka", "Nuer", "Bari", "
 
 export const LESSON_STATUS = ["Draft", "Published", "Broadcast", "Archived"];
 
-export const INTEGRATION_DIRECTIONS = ["Inbound", "Outbound", "Bi-directional"];
+export const PARTNER_TYPES = [
+  "Development partner",
+  "UN agency",
+  "Bilateral donor",
+  "NGO / CSO",
+  "Faith-based organisation",
+  "Private sector",
+  "Research institution",
+];
 
-export const INTEGRATION_STATUS = ["Active", "Testing", "Suspended", "Retired"];
+export const PARTNER_STATUS = ["Active", "Onboarding", "Suspended", "Closed"];
+
+export const PARTNER_REPORT_TYPES = [
+  "Statistical return",
+  "Programme progress",
+  "Financial utilisation",
+  "Inspection summary",
+  "Emergency update",
+  "Joint review",
+];
+
+export const PARTNER_REPORT_STATUS = [
+  "Draft",
+  "Shared",
+  "Awaiting reply",
+  "Replied",
+  "Closed",
+];
+
+export const PARTNER_REPLY_SIDES = ["Ministry", "Partner"];
 
 export const FIELD_REPORT_TYPES = [
   "School visit",
@@ -335,11 +362,12 @@ export const MODULES: ModuleEntry[] = [
     status: "Operational",
   },
   {
-    code: "API",
-    name: "Integration & API Gateway",
-    description: "Interoperability with treasury, civil registry and development partners.",
-    group: "Technical",
-    to: "/integrations",
+    code: "PTR",
+    name: "Partners of General Education & Instruction",
+    description:
+      "Partner directory, shared sector reports, and reply threads with development partners.",
+    group: "Citizen services",
+    to: "/partners",
     status: "Operational",
   },
   {

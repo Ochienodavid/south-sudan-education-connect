@@ -389,50 +389,150 @@ export type Database = {
           },
         ]
       }
-      integrations: {
+      partners: {
         Row: {
+          code: string
+          contact_email: string | null
+          contact_name: string | null
           created_at: string
           created_by: string | null
-          data_scope: string | null
-          direction: string
-          endpoint: string | null
+          focus_areas: string | null
           id: string
-          last_sync: string | null
           name: string
-          partner: string | null
-          purpose: string | null
+          notes: string | null
+          partner_type: string
+          states_covered: string | null
           status: string
           updated_at: string
         }
         Insert: {
+          code: string
+          contact_email?: string | null
+          contact_name?: string | null
           created_at?: string
           created_by?: string | null
-          data_scope?: string | null
-          direction?: string
-          endpoint?: string | null
+          focus_areas?: string | null
           id?: string
-          last_sync?: string | null
           name: string
-          partner?: string | null
-          purpose?: string | null
+          notes?: string | null
+          partner_type?: string
+          states_covered?: string | null
           status?: string
           updated_at?: string
         }
         Update: {
+          code?: string
+          contact_email?: string | null
+          contact_name?: string | null
           created_at?: string
           created_by?: string | null
-          data_scope?: string | null
-          direction?: string
-          endpoint?: string | null
+          focus_areas?: string | null
           id?: string
-          last_sync?: string | null
           name?: string
-          partner?: string | null
-          purpose?: string | null
+          notes?: string | null
+          partner_type?: string
+          states_covered?: string | null
           status?: string
           updated_at?: string
         }
         Relationships: []
+      }
+      partner_reports: {
+        Row: {
+          body: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          partner_id: string | null
+          period_label: string | null
+          published_on: string | null
+          reference: string
+          report_type: string
+          state: string | null
+          status: string
+          summary: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          partner_id?: string | null
+          period_label?: string | null
+          published_on?: string | null
+          reference: string
+          report_type?: string
+          state?: string | null
+          status?: string
+          summary?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          partner_id?: string | null
+          period_label?: string | null
+          published_on?: string | null
+          reference?: string
+          report_type?: string
+          state?: string | null
+          status?: string
+          summary?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_reports_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_report_replies: {
+        Row: {
+          author_name: string
+          author_side: string
+          body: string
+          created_at: string
+          created_by: string | null
+          id: string
+          report_id: string
+        }
+        Insert: {
+          author_name: string
+          author_side?: string
+          body: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          report_id: string
+        }
+        Update: {
+          author_name?: string
+          author_side?: string
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          report_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_report_replies_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "partner_reports"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       lessons: {
         Row: {

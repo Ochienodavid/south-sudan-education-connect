@@ -40,7 +40,7 @@ const NAV = [
   { to: "/directory", label: "Citizen Directory (CIT)", icon: School },
   { to: "/analytics", label: "Early Warning (AI)", icon: BarChart3 },
   { to: "/intelligence", label: "Reporting (BI)", icon: BarChart3 },
-  { to: "/integrations", label: "API Gateway", icon: ShieldCheck },
+  { to: "/partners", label: "Partners of GEI", icon: Users },
   { to: "/modules", label: "Platform Modules", icon: BookOpen },
   { to: "/administration", label: "Administration", icon: ShieldCheck },
 ] as const;

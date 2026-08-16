@@ -77,7 +77,8 @@ export type TableName =
   | "inspections"
   | "curriculum_items"
   | "lessons"
-  | "integrations"
+  | "partners"
+  | "partner_reports"
   | "field_reports";
 
 export function RecordManager<T extends Row>({
