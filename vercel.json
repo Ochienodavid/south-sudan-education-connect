@@ -5,17 +5,10 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "functions": {
-    "api/[...].ts": {
-      "runtime": "nodejs20.x",
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api/[...].ts"
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }

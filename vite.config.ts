@@ -9,10 +9,8 @@ export default defineConfig({
   server: {
     port: 5173,
   },
-  optimizeDeps: {
-    exclude: ['@tanstack/start-storage-context', '@tanstack/react-start'],
-  },
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  build: {
+    target: 'esnext',
+    outDir: 'dist',
   },
 });
