@@ -305,7 +305,6 @@ function PartnerReportsWorkspace() {
         body: form.body.trim() || null,
         status: form.status,
         published_on: form.published_on || null,
-        created_by: user?.id ?? null,
       };
       if (!payload.reference || !payload.title) {
         throw new Error("Reference and title are required.");
@@ -315,7 +314,11 @@ function PartnerReportsWorkspace() {
         if (error) throw error;
         return editing.id;
       }
-      const { data, error } = await supabase.from("partner_reports").insert(payload).select("id").single();
+      const { data, error } = await supabase
+        .from("partner_reports")
+        .insert({ ...payload, created_by: user?.id ?? null })
+        .select("id")
+        .single();
       if (error) throw error;
       return data.id as string;
     },

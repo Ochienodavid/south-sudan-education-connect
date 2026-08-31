@@ -5,4 +5,5 @@ export const Route = createFileRoute("/_authenticated/integrations")({
   beforeLoad: () => {
     throw redirect({ to: "/partners" });
   },
+  component: () => null,
 });
