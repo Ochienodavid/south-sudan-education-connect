@@ -3,7 +3,8 @@
 -- partner organisations, shared reports, and threaded replies.
 -- Safe to re-run: every object is created only if missing.
 
-DROP TABLE IF EXISTS public.integrations CASCADE;
+-- The legacy public.integrations table is intentionally left in place so no existing
+-- records are lost. The app no longer reads it; drop it manually once it is archived.
 
 CREATE TABLE IF NOT EXISTS public.partners (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
